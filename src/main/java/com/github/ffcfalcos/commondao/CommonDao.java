@@ -18,6 +18,7 @@ import java.util.List;
  * This class offer multiple generic SQL commands to easily execute hard SQL query
  * If you want to edit the logger, you have to do it on the class extending this one
  * If you are using Beans, create a @PostConstructed method to set Parameters
+ * Advice: Create an abstract class where you declare the getConnection method for all Dao of the same database
  * @param <T> The entity manage with the table
  */
 @SuppressWarnings("WeakerAccess")
@@ -187,6 +188,7 @@ public abstract class CommonDao<T> {
     /**
      * Create a SQL Connection which must stay open
      * Make sur that this method doesn't throw any Exception cause it may be catch and hidden
+     * Dont forget to load the Driver
      * @return Connection a SQL Connection
      */
     protected abstract Connection getConnection();

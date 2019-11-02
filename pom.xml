@@ -8,8 +8,8 @@
     <artifactId>common-dao</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Logger Manager</name>
-    <description>Logger Manager is a small component to easily log messages on rabbitMQ, console and files</description>
+    <name>Common DAO</name>
+    <description>Common DAO is abstracts class which permit to easily manage DAO</description>
     <url>https://github.com/ffcfalcos/commondao</url>
 
     <licenses>
