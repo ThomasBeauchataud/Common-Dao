@@ -3,6 +3,9 @@ package com.github.ffcfalcos.commondao;
 import java.util.List;
 
 /**
+ * @author Thomas Beauchataud
+ * @since 03.11.2019
+ * @version 2.0.0
  * Generic DAO Interface which offer basics command handle by the CommonDao
  * Advice: Created an interface specific to dao class and extends it with this interface
  * @param <T> Object, The entity manage with the table

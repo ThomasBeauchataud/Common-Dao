@@ -1,12 +1,10 @@
 package com.github.ffcfalcos.commondao;
 
-import com.github.ffcfalcos.logformatter.LogDaoFormatter;
-import com.github.ffcfalcos.logformatter.LogDaoFormatterInterface;
-import com.github.ffcfalcos.logformatter.LogType;
-import com.github.ffcfalcos.logger.Logger;
 import com.github.ffcfalcos.logger.LoggerInterface;
+import com.github.ffcfalcos.logger.formatter.LogDaoFormatterInterface;
 import org.json.simple.JSONObject;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author Thomas Beauchataud
+ * @since 03.11.2019
+ * @version 2.0.0
  * This class offer multiple generic SQL commands to easily execute hard SQL query
  * If you want to edit the logger, you have to do it on the class extending this one
  * If you are using Beans, create a @PostConstructed method to set Parameters
@@ -24,8 +25,10 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public abstract class CommonDao<T> {
 
-    protected final LoggerInterface logger = new Logger();
-    protected final LogDaoFormatterInterface logDaoFormatter = new LogDaoFormatter();
+    @Inject
+    protected LoggerInterface logger;
+    @Inject
+    protected LogDaoFormatterInterface logDaoFormatter;
 
     /**
      * Execute an Insert Query with the SQL query and his parameters
@@ -34,7 +37,7 @@ public abstract class CommonDao<T> {
      *                   Parameters must be indexed with the same of order as the SQL Query
      */
     protected void insert(String query, Object[] parameters) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         try {
             PreparedStatement preparedStatement = this.generateStatement(query, parameters);
             logDaoFormatter.addRequest(logContent, preparedStatement.toString());
@@ -52,7 +55,7 @@ public abstract class CommonDao<T> {
      *                   Parameters must be indexed with the same of order as the SQL Query
      */
     protected void update(String query, Object[] parameters) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         try {
             PreparedStatement preparedStatement = this.generateStatement(query, parameters);
             logDaoFormatter.addRequest(logContent, preparedStatement.toString());
@@ -70,7 +73,7 @@ public abstract class CommonDao<T> {
      * @return T
      */
     protected T getById(String query, int id) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         try {
             PreparedStatement preparedStatement = this.getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
@@ -95,7 +98,7 @@ public abstract class CommonDao<T> {
      * @return T
      */
     protected T getOne(String query, Object[] parameters) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         try {
             PreparedStatement preparedStatement = this.generateStatement(query, parameters);
             logDaoFormatter.addRequest(logContent, preparedStatement.toString());
@@ -119,7 +122,7 @@ public abstract class CommonDao<T> {
      * @return T[]
      */
     protected List<T> getMultiple(String query, Object[] parameters) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         List<T> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = this.generateStatement(query, parameters);
@@ -141,7 +144,7 @@ public abstract class CommonDao<T> {
      * @return T[]
      */
     protected List<T> getAll(String query) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         List<T> list = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = this.getConnection().prepareStatement(query);
@@ -163,7 +166,7 @@ public abstract class CommonDao<T> {
      * @param id int
      */
     protected void deleteById(String query, int id) {
-        List<JSONObject> logContent = logDaoFormatter.init(LogType.DAO);
+        List<JSONObject> logContent = logDaoFormatter.init();
         try {
             PreparedStatement preparedStatement = this.getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
