@@ -5,12 +5,13 @@ import java.util.List;
 /**
  * @author Thomas Beauchataud
  * @since 03.11.2019
- * @version 2.0.0
- * Generic DAO Interface which offer basics command handle by the CommonDao
+ * @version 2.1.0
+ * Generic DAO Interface which offer basics command handle by the AbstractDao
  * Advice: Created an interface specific to dao class and extends it with this interface
  * @param <T> Object, The entity manage with the table
  */
-public interface CommonDaoInterface<T> {
+@SuppressWarnings("unused")
+public interface AbstractDaoInterface<T> {
 
     /**
      * Insert a new Entity T

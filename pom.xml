@@ -6,7 +6,7 @@
 
     <groupId>com.github.ffcfalcos</groupId>
     <artifactId>common-dao</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <packaging>jar</packaging>
     <name>Common DAO</name>
     <description>Common DAO is abstracts class which permit to easily manage DAO</description>
@@ -126,7 +126,7 @@
         <dependency>
             <groupId>com.github.ffcfalcos</groupId>
             <artifactId>logger-manager</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
         </dependency>
     </dependencies>
 

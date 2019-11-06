@@ -8,17 +8,22 @@ import java.sql.DriverManager;
 /**
  * @author Thomas Beauchataud
  * @since 03.11.2019
- * @version 2.0.0
+ * @version 2.1.0
  * This abstract class override the abstract method getConnection to create a SQLConnection with env-entry parameters
  *      db-url, the database url
  *      db-user, the database user
  *      db-password, the database password
  * @param <T> Object, The entity manage with the table
  */
-public abstract class ApplicationDao<T> extends CommonDao<T> {
+@SuppressWarnings({"unused"})
+public abstract class ApplicationDao<T> extends AbstractDao<T> {
 
     private Connection connection;
 
+    /**
+     * Return a SQL Connection
+     * @return {@link java.sql.Connection}
+     */
     @Override
     protected Connection getConnection() {
         if(connection != null) {
