@@ -6,7 +6,7 @@
 
     <groupId>com.github.ffcfalcos</groupId>
     <artifactId>common-dao</artifactId>
-    <version>2.1.0</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Common DAO</name>
     <description>Common DAO is abstracts class which permit to easily manage DAO</description>
@@ -25,24 +25,34 @@
             <name>Thomas Beauchataud</name>
             <email>thomas.lcdv@yahoo.fr</email>
             <organization>com.github.ffcfalcos</organization>
-            <organizationUrl>https://github.com/ffcfalcos/commondao</organizationUrl>
+            <organizationUrl>https://github.com/ffcfalcos/Common-Dao</organizationUrl>
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/ffcfalcos/commondao.git</connection>
-        <developerConnection>scm:git:ssh://github.com:ffcfalcos/commondao.git</developerConnection>
-        <url>https://github.com/ffcfalcos/commondao</url>
-    </scm>
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub ffcfalcos Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/ffcfalcos</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>github</id>
+            <name>GitHub ffcfalcos Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/ffcfalcos/Common-Dao</url>
         </repository>
     </distributionManagement>
 
@@ -98,17 +108,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -118,10 +117,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
-            <scope>provided</scope>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.ffcfalcos</groupId>
