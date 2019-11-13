@@ -5,40 +5,59 @@ import javax.naming.InitialContext;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- * @author Thomas Beauchataud
- * @since 03.11.2019
- * @version 2.1.0
- * This abstract class override the abstract method getConnection to create a SQLConnection with env-entry parameters
- *      db-url, the database url
- *      db-user, the database user
- *      db-password, the database password
- * @param <T> Object, The entity manage with the table
- */
 @SuppressWarnings({"unused"})
 public abstract class ApplicationDao<T> extends AbstractDao<T> {
 
     private Connection connection;
+    private String databaseHost = loadDatabaseHost();
+    private String databaseUser = loadDatabaseUser();
+    private String databasePassword = loadDatabasePassword();
 
-    /**
-     * Return a SQL Connection
-     * @return {@link java.sql.Connection}
-     */
+    public void setDatabaseHost(String databaseHost) {
+        this.databaseHost = databaseHost;
+    }
+
+    public void setDatabaseUser(String databaseUser) {
+        this.databaseUser = databaseUser;
+    }
+
+    public void setDatabasePassword(String databasePassword) {
+        this.databasePassword = databasePassword;
+    }
+
     @Override
-    protected Connection getConnection() {
+    protected Connection getConnection() throws Exception {
         if(connection != null) {
             return connection;
         }
+        Class.forName( "com.mysql.cj.jdbc.Driver" );
+        this.connection = DriverManager.getConnection(databaseHost, databaseUser, databasePassword);
+        return this.connection;
+    }
+
+    private String loadDatabaseHost() {
         try {
-            Class.forName( "com.mysql.cj.jdbc.Driver" );
-            Context env = (Context)new InitialContext().lookup("java:comp/env");
-            String db_url = "jdbc:mysql:" + env.lookup("db-url") + "?autoReconnect=true&useSSL=false";
-            String db_login = (String)env.lookup("db-user");
-            String db_password = (String)env.lookup("db-password");
-            this.connection = DriverManager.getConnection(db_url, db_login, db_password);
-            return this.connection;
+            Context env = (Context) new InitialContext().lookup("java:comp/env");
+            return  "jdbc:mysql:" + env.lookup("db-url") + "?autoReconnect=true&useSSL=false";
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private String loadDatabaseUser() {
+        try {
+            Context env = (Context) new InitialContext().lookup("java:comp/env");
+            return  "jdbc:mysql:" + env.lookup("db-user") + "?autoReconnect=true&useSSL=false";
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private String loadDatabasePassword() {
+        try {
+            Context env = (Context) new InitialContext().lookup("java:comp/env");
+            return  "jdbc:mysql:" + env.lookup("db-password") + "?autoReconnect=true&useSSL=false";
+        } catch (Exception e) {
             return null;
         }
     }
