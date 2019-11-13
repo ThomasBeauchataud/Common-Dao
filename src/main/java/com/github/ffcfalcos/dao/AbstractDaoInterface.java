@@ -1,4 +1,4 @@
-package com.github.ffcfalcos.commondao;
+package com.github.ffcfalcos.dao;
 
 import java.util.List;
 
