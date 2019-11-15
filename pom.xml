@@ -6,7 +6,7 @@
 
     <groupId>com.github.ffcfalcos</groupId>
     <artifactId>common-dao</artifactId>
-    <version>3.0.0-RELEASE</version>
+    <version>3.0.2-RELEASE</version>
     <packaging>jar</packaging>
     <name>Common DAO</name>
     <description>Common DAO is abstracts class which permit to easily manage DAO</description>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"WeakerAccess","unused","Duplicates"})
-public abstract class AbstractDao<T> implements AbstractDaoInterface<T> {
+public abstract class AbstractDao<T> {
 
     protected void insert(String query, Object[] parameters) throws Exception {
         PreparedStatement preparedStatement = this.generateStatement(query, parameters);

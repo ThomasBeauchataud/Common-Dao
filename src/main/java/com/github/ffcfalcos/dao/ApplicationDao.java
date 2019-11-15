@@ -47,7 +47,7 @@ public abstract class ApplicationDao<T> extends AbstractDao<T> {
     private String loadDatabaseUser() {
         try {
             Context env = (Context) new InitialContext().lookup("java:comp/env");
-            return  "jdbc:mysql:" + env.lookup("db-user") + "?autoReconnect=true&useSSL=false";
+            return (String)env.lookup("db-user");
         } catch (Exception e) {
             return null;
         }
@@ -56,7 +56,7 @@ public abstract class ApplicationDao<T> extends AbstractDao<T> {
     private String loadDatabasePassword() {
         try {
             Context env = (Context) new InitialContext().lookup("java:comp/env");
-            return  "jdbc:mysql:" + env.lookup("db-password") + "?autoReconnect=true&useSSL=false";
+            return  (String) env.lookup("db-password");
         } catch (Exception e) {
             return null;
         }
